@@ -1,7 +1,7 @@
 {
-  "name": "child-template",
+  "name": "report-html-tags",
   "version": "1.0.0",
-  "description": "Put your child module's description here",
+  "description": "In D2L files can have <style> and <script> tags in the html, however Canvas only keeps whatever is in the body tag and gets rid of the <style> and <script> tags. These tags might include important code for the course, so it is necessary to report which files had the tags to track if anything needs to be modified in Canvas because of the missing tags ",
   "main": "main.js",
   "dependencies": {
     "canvas-wrapper": "github:byuitechops/canvas-wrapper"
@@ -17,13 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/byuitechops/child-template.git"
+    "url": "git+https://github.com/byuitechops/report-html-tags.git"
   },
-  "author": "Zachary Williams, Daniel Green",
+  "author": "Seth Childers",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/byuitechops/child-template/issues"
+    "url": "https://github.com/byuitechops/report-html-tags/issues"
   },
-  "homepage": "https://github.com/byuitechops/child-template#readme",
-  "childType": "postImport"
+  "homepage": "https://github.com/byuitechops/report-html-tags#readme",
+  "childType": "preImport"
 }
