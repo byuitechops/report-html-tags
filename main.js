@@ -34,7 +34,7 @@ module.exports = (course, stepCallback) => {
 
         /* Loop through each file to check its contents for script and style tags */
         files.forEach(file => {
-            var $ = cheerio.load(file.dom('*').html());
+            var $ = cheerio.load(file.dom.html());
             var scriptTags = $('script').get();
             var styleTags = $('style').get();
 
