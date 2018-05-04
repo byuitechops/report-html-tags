@@ -34,25 +34,42 @@ module.exports = (course, stepCallback) => {
 
         /* Loop through each file to check its contents for script and style tags */
         files.forEach(file => {
+            var $ = cheerio.load(file.dom('*').html());
+            var scriptTags = $('script').get();
+            var styleTags = $('style').get();
+
             var logObj = {
                 'File Name': file.name,
                 'Script Tags': 'None',
                 'Style Tags': 'None',
             };
-            
+
             /* If a script tag exists, add it to the log object */
-            if (file.dom('script').html()) {
-                logObj["Script Tags"] = file.dom('script').html();
+            if (scriptTags.length !== 0) {
+                var logScript = '';
+                scriptTags.forEach(tag => {
+                    if ($(tag).attr('src')) {
+                        logScript += `\n<script src="${$(tag).attr('src')}"></script>`;
+                    } else if ($(tag).html()) {
+                        logScript += `\n<script>${$(tag).html()}</script>`;
+                    }
+                });
+
+                /* Write the script tags to the 'Script Tags' attribute on the log object */
+                logObj["Script Tags"] = logScript;
             }
 
             /* If a style tag exists, add it to the log object */
-            if (file.dom('style').html()) {
-                logObj["Style Tags"] = file.dom('style').html();
+            if (styleTags.length !== 0) {
+                /* There should only ever be one <style> tag, but loop throug just in case */
+                styleTags.forEach(tag => {
+                    logObj["Style Tags"] = $(tag).html();
+                });
             }
 
             /* If either tag exists, log it with the file name*/
-            if (file.dom('script').html() || file.dom('style').html()) {
-                course.log(`Report Script and Style Tags`, logObj);
+            if (scriptTags.length !== 0 || styleTags.length !== 0) {
+                course.log(`Use to Contain Script or Style Tags`, logObj);
             }
         });
 
