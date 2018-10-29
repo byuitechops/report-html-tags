@@ -1,10 +1,10 @@
 String.prototype.sanitize = function () {
    let repl = {
-      '<script': `&lt;script`,
-      '</script>': '&lt;/script&gt;',
+      '<style': `&lt;style`,
+      '</style>': '&lt;/style&gt;',
    };
 
-   return this.replace(/(<script|<\/script>)/g, (tag) => repl[tag] || tag);
+   return this.replace(/(<style|<\/style>)/g, (tag) => repl[tag] || tag);
 };
 
 /**********************************************************************************************
@@ -56,9 +56,9 @@ module.exports = (course, stepCallback) => {
             var logScript = '';
             scriptTags.forEach(tag => {
                if ($(tag).attr('src')) {
-                  logScript += `\n<script src="${$(tag).attr('src')}"></script>`.sanitize();
+                  logScript += `\n&lt;script src="${$(tag).attr('src')}"&gt;'&lt;/script&gt;'`;
                } else if ($(tag).html()) {
-                  logScript += `\n<script>${$(tag).html()}</script>`.sanitize();
+                  logScript += `\n&lt;script&gt;'${$(tag).html()}&lt;/script&gt;'`;
                }
             });
 
@@ -70,7 +70,7 @@ module.exports = (course, stepCallback) => {
          if (styleTags.length !== 0) {
             // There should only ever be one <style> tag, but loop throug just in case
             styleTags.forEach(tag => {
-               logObj["Style Tags"] = $(tag).html();
+               logObj["Style Tags"] = $(tag).html().sanitize();
             });
          }
 
