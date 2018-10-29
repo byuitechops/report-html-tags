@@ -4,10 +4,8 @@
   "description": "In D2L files can have <style> and <script> tags in the html, however Canvas only keeps whatever is in the body tag and gets rid of the <style> and <script> tags. These tags might include important code for the course, so it is necessary to report which files had the tags to track if anything needs to be modified in Canvas because of the missing tags ",
   "main": "main.js",
   "dependencies": {
-    "canvas-wrapper": "github:byuitechops/canvas-wrapper"
   },
   "devDependencies": {
-    "async": "^2.6.0",
     "child-development-kit": "github:byuitechops/child-development-kit",
     "tap": "^10.7.3"
   },
